@@ -12,7 +12,7 @@ const alata = Alata({
 export default function Page(): JSX.Element {
   return (
     <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
-      <div className=" bg-white shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
+      <div className=" bg-white sm:shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
         <div className="w-[90%] sm:w-[35%] mx-auto flex gap-8 flex-col">
           <div
             className={`font-semibold text-4xl text-center ${alata.className}`}
