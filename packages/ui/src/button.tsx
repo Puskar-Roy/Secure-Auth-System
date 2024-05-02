@@ -11,7 +11,7 @@ interface ButtonProps {
 export const Button = ({ children, className, appName }: ButtonProps) => {
   return (
     <button
-      className={className}
+      className={`${className} rounded-xl px-3 py-2`}
       onClick={() => alert(`Hello from your ${appName} app!`)}
     >
       {children}
