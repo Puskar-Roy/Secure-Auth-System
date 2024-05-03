@@ -9,7 +9,7 @@ export const limiter = rateLimit({
   max: 100,
 });
 
-const whitelist = ["http://localhost:3000"];
+const whitelist = ["http://localhost:3000", "https://myauthhub.vercel.app"];
 export const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
     if (origin)
