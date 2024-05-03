@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 export default function Page(): JSX.Element {
   const [activeUsers, setActiveUsers] = useState(0);
-   const browserInfo = navigator.userAgent;
-   const browserLanguage = navigator.language;
-   const platform = navigator.platform;
+ 
+  const browserInfo = window.navigator.userAgent;
+  const browserLanguage = window.navigator.language;
+  const platform = window.navigator.platform;
+
   useEffect(() => {
     const socket: Socket = socketIOClient(
       `${process.env.NEXT_PUBLIC_BACKENDURL}`
@@ -32,10 +34,10 @@ export default function Page(): JSX.Element {
       Hello {state.user?.name} 👋
       <div>Total Active User - {activeUsers}</div>
       <div className="flex flex-col">
-      <div>{browserInfo}</div>
-      <div>{browserLanguage}</div>
-      <div>{platform}</div>
-
+        <div>{browserInfo}</div>
+        <div>{browserLanguage}</div>
+        <div>{platform}</div>
+        
       </div>
     </main>
   );
