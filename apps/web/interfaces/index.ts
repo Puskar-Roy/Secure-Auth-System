@@ -19,3 +19,9 @@ export interface Action {
 export interface AuthContextProviderProps {
   children: ReactNode;
 }
+
+
+export interface LoginData {
+  email: string;
+  password: string;
+}

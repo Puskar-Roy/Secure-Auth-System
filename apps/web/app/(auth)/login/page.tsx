@@ -4,6 +4,7 @@ import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Alata } from "next/font/google";
 import Link from "next/link";
+import { useLogin } from "../../../hooks/useLogin";
 
 const alata = Alata({
   weight: "400",
@@ -11,6 +12,7 @@ const alata = Alata({
   display: "swap",
 });
 export default function Page(): JSX.Element {
+  const { login, error, isLoading, isSucess } = useLogin();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -21,9 +23,15 @@ export default function Page(): JSX.Element {
     setPassword(event.target.value);
   };
 
-  const handleClick = ()=>{
-    alert(`Email Is - ${email} Password Is - ${password}`);
-  }
+  const handleClick = async () => {
+    const loginData = {
+      email,
+      password,
+    };
+   
+      await login(loginData);
+  
+  };
   return (
     <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
       <div className=" bg-white sm:shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
@@ -53,7 +61,7 @@ export default function Page(): JSX.Element {
             <p className="text-end text-sm font-medium">
               Forgot{" "}
               <span className="text-rose-500 cursor-pointer ">
-                <Link href='forgot-password'>Password ?</Link>
+                <Link href="forgot-password">Password ?</Link>
               </span>
             </p>
             <Button
@@ -61,6 +69,7 @@ export default function Page(): JSX.Element {
               className=" bg-rose-500 hover:bg-rose-400 text-white text-base font-semibold  rounded-xl px-3 py-4"
               key="1"
               onClick={handleClick}
+              disabled={isLoading}
             >
               Login
             </Button>
@@ -71,6 +80,16 @@ export default function Page(): JSX.Element {
                 <Link href="/register">Register</Link>
               </span>
             </p>
+            {error && (
+              <div className="bg-rose-200 text-rose-500 p-5 rounded-lg mt-4">
+                Invalid credentials or Email is not verified.
+              </div>
+            )}
+            {isSucess && (
+              <div className="bg-green-200 text-green-500 p-5 rounded-lg mt-4">
+                OTP Send Successfully!
+              </div>
+            )}
           </form>
         </div>
       </div>
