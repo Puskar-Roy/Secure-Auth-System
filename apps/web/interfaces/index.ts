@@ -36,3 +36,12 @@ export interface LoginVerifyData {
   email: string;
   otp: string;
 }
+
+
+export interface LoginHistory {
+  _id: string;
+  userId: string;
+  deviceInfo: string;
+  os: string;
+  timestamp: string;
+}
