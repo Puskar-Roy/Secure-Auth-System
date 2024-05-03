@@ -8,13 +8,14 @@ import config from "./config/config";
 import errorHandler from "./middleware/errorHandler";
 import CheckError from "./util/checkError";
 import { limiter , corsOptions , socketOptions } from "./util/utils";
+import authRoutes from './routes/authRoutes';
 
 const app: Express = express();
 
+app.use(express.json());
 app.use(limiter);
 app.use(config.DEV_ENV === "PROD" ? cors(corsOptions) : cors()); 
 app.set("trust proxy", config.DEV_ENV === "PROD" ? true : false);
-app.use(express.json());
 app.use(helmet());
 app.use(hpp());
 app.use(errorHandler);
@@ -29,6 +30,9 @@ const io = new Server(server,socketOptions);
 app.get("/", (req: Request, res: Response) => {
   res.json({ success: true, message: "API IS WORKING 🥳" });
 });
+
+app.use("/api/v0.1/auth", authRoutes);
+
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new CheckError(`Can't find ${req.originalUrl} on this server!`, 404));
