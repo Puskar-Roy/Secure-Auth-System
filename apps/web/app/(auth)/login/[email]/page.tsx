@@ -2,9 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import { useVerifyLogin } from "../../../../hooks/useVerifyLogin";
 
 const page = () => {
+  const { verify, error, isLoading, isSucess } = useVerifyLogin();
   const params = useParams<{ email: string }>();
+  const email = decodeURIComponent(params.email);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const refs = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -13,7 +16,7 @@ const page = () => {
   }, [otp]);
 
   const handleChange = (index: number, value: string) => {
-    if (value.length > 1) return; 
+    if (value.length > 1) return;
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -29,10 +32,11 @@ const page = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const otpValue = otp.join("");
-    console.log("OTP:", otpValue);
+    const verifydata = { email, otp: otpValue };
+    await verify(verifydata);
   };
   return (
     <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
@@ -43,7 +47,7 @@ const page = () => {
               <p>Email Verification</p>
             </div>
             <div className="flex flex-row text-sm font-medium text-gray-400">
-              <p>We have sent a code to your email {params.email}</p>
+              <p>We have sent a code to your email {email}</p>
             </div>
           </div>
 
@@ -63,7 +67,7 @@ const page = () => {
                         type="text"
                         value={value}
                         onChange={(e) => handleChange(index, e.target.value)}
-                        maxLength={1} 
+                        maxLength={1}
                       />
                     </div>
                   ))}
@@ -71,7 +75,10 @@ const page = () => {
 
                 <div className="flex flex-col space-y-5">
                   <div>
-                    <button className="flex flex-row items-center justify-center text-center w-full border rounded-xl hover:bg-rose-400 outline-none py-5 bg-rose-500 border-none text-white shadow-sm text-base font-semibold">
+                    <button
+                      disabled={isLoading}
+                      className="flex flex-row items-center justify-center text-center w-full border rounded-xl hover:bg-rose-400 outline-none py-5 bg-rose-500 border-none text-white shadow-sm text-base font-semibold"
+                    >
                       Verify Account
                     </button>
                   </div>
@@ -87,6 +94,16 @@ const page = () => {
                       Resend
                     </a>
                   </div>
+                  {error && (
+                    <div className="bg-rose-200 text-rose-500 p-5 rounded-lg mt-4">
+                      Invalid OTP.
+                    </div>
+                  )}
+                  {isSucess && (
+                    <div className="bg-green-200 text-green-500 p-5 rounded-lg mt-4">
+                      Login Successfully!
+                    </div>
+                  )}
                 </div>
               </div>
             </form>

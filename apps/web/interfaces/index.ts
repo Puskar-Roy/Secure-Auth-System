@@ -9,6 +9,8 @@ export interface User {
   email?: string;
   id?: string;
   name?: string;
+  message: string;
+  success: boolean;
 }
 
 export interface Action {
@@ -20,8 +22,12 @@ export interface AuthContextProviderProps {
   children: ReactNode;
 }
 
-
 export interface LoginData {
   email: string;
   password: string;
+}
+
+export interface LoginVerifyData {
+  email: string;
+  otp: string;
 }
