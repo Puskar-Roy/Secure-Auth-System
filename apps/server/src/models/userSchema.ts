@@ -19,6 +19,9 @@ const userSchema = new Schema<User>(
     verificationTokens: [
       { type: Schema.Types.ObjectId, ref: "VerificationToken" },
     ],
+    loginHistory: [
+      { type: Schema.Types.ObjectId, ref: "LoginHistory" }, 
+    ],
     isVerified: {
       type: Boolean,
       default: false,
