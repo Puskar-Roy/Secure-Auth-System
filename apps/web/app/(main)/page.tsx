@@ -15,6 +15,7 @@ export default function Page(): JSX.Element {
     });
 
     socket.on("duplicateLogin", (message) => {
+      console.log(message);
       alert(message);
     });
 

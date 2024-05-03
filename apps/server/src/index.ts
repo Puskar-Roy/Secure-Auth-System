@@ -9,6 +9,7 @@ import errorHandler from "./middleware/errorHandler";
 import CheckError from "./util/checkError";
 import { limiter, corsOptions, socketOptions } from "./util/utils";
 import authRoutes from "./routes/authRoutes";
+import { sendAleart } from "./util/sendAleart";
 
 const app: Express = express();
 
@@ -37,55 +38,39 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new CheckError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-
-
-
-interface Device {
-  socketId: string;
-  device: string;
-}
-
 let activeUsers = 0;
-const loginHistory: { [userId: string]: Device[] } = {};
+const loggedInUserIds: string[] = [];
 
 io.on("connection", (socket) => {
   activeUsers++;
   io.emit("activeUsers", activeUsers);
   console.log("New user connected. Active users:", activeUsers);
 
-  socket.on("login", (userId: string) => {
-    if (!loginHistory[userId]) {
-      loginHistory[userId] = [];
-    }
+  socket.on("login", async (userId: string) => {
+    console.log("login event start for userId:", userId);
 
-    const existingDevice = loginHistory[userId].find(
-      (device) => device.socketId !== socket.id
-    );
-    if (existingDevice) {
-      // Send a message to the existing device
-      io.to(existingDevice.socketId).emit(
-        "duplicateLogin",
-        "You have logged in from another device."
-      );
-    }
+    if (loggedInUserIds.includes(userId)) {
+      console.log("duplicateLogin event start for userId:", userId);
+      await sendAleart(userId);
+    } else {
+      loggedInUserIds.push(userId);
 
-    loginHistory[userId].push({ socketId: socket.id, device: "phone" });
-    console.log("User logged in. Login history:", loginHistory[userId]);
+      console.log("User logged in. Active userIds:", loggedInUserIds);
+    }
   });
 
   socket.on("disconnect", () => {
     activeUsers--;
     io.emit("activeUsers", activeUsers);
     console.log("User disconnected. Active users:", activeUsers);
+
+    // Remove the user's userId on disconnect
+    const index = loggedInUserIds.indexOf(socket.id);
+    if (index !== -1) {
+      loggedInUserIds.splice(index, 1);
+    }
   });
 });
-
-
-
-
-
-
-
 
 server.listen(config.PORT, () => {
   console.log(`[⚡] Server Is Running on ${config.BACKENDURL}`);
