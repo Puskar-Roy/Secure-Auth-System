@@ -5,13 +5,18 @@ import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 export default function Page(): JSX.Element {
   const [activeUsers, setActiveUsers] = useState(0);
-  let browserInfo;
-  let browserLanguage;
-  let platform;
+  // let browserInfo;
+  // let browserLanguage;
+  // let platform;
+  let browserName;
+  let os;
   if (typeof window !== "undefined") {
-    browserInfo = window.navigator.userAgent;
-    browserLanguage = window.navigator.language;
-    platform = window.navigator.platform;
+    // browserInfo = window.navigator.userAgent;
+    // browserLanguage = window.navigator.language;
+    // platform = window.navigator.platform;
+    const ua = navigator.userAgent;
+    browserName = ua.match(/Chrome|Firefox|Safari|Edge/i)?.[0];
+    os = ua.match(/Macintosh|Windows|Linux/i)?.[0];
   }
 
   useEffect(() => {
@@ -38,9 +43,8 @@ export default function Page(): JSX.Element {
       Hello {state.user?.name} 👋
       <div>Total Active User - {activeUsers}</div>
       <div className="flex flex-col">
-        <div>{browserInfo}</div>
-        <div>{browserLanguage}</div>
-        <div>{platform}</div>
+        <div>{browserName}</div>
+        <div>{os}</div>
       </div>
     </main>
   );
