@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "esbuild src/index.ts --platform=node --bundle --outdir=dist && node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
+    "vercel-build": "echo Vercel-Build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
