@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 export default function Page(): JSX.Element {
   const [activeUsers, setActiveUsers] = useState(0);
- 
-  const browserInfo = window.navigator.userAgent;
-  const browserLanguage = window.navigator.language;
-  const platform = window.navigator.platform;
+  let browserInfo;
+  let browserLanguage;
+  let platform;
+  if (typeof window !== "undefined") {
+    browserInfo = window.navigator.userAgent;
+    browserLanguage = window.navigator.language;
+    platform = window.navigator.platform;
+  }
 
   useEffect(() => {
     const socket: Socket = socketIOClient(
@@ -37,7 +41,6 @@ export default function Page(): JSX.Element {
         <div>{browserInfo}</div>
         <div>{browserLanguage}</div>
         <div>{platform}</div>
-        
       </div>
     </main>
   );
