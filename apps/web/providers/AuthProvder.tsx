@@ -31,20 +31,12 @@ export const authReducer = (state: State, action: Action): State => {
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   useEffect(() => {
-    const userString = localStorage.getItem("monorepo-user");
+    const userString = localStorage.getItem("user");
     if (userString) {
       const user: User = JSON.parse(userString);
       dispatch({ type: "LOGIN", payload: user });
     }
   }, []);
-
-  useEffect(() => {
-    const saveUser = () => {
-      localStorage.setItem("monorepo-user", JSON.stringify(state.user));
-    };
-
-    saveUser();
-  }, [state.user]);
 
   console.log("Auth Context State : ", state);
   return (

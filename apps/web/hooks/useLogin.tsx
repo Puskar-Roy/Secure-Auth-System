@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react";
-// import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 import { LoginData } from "../interfaces";
 import { useRouter } from "next/navigation";
@@ -10,8 +9,6 @@ export const useLogin = () => {
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [isSucess, setisSucess] = useState<boolean>(false);
-//   const { dispatch } = useAuthContext();
-
   const login = async ({ email, password }: LoginData) => {
     setisLoading(true);
     setError(false);
@@ -23,8 +20,7 @@ export const useLogin = () => {
           password,
         }
       );
-    //   localStorage.setItem("user", JSON.stringify(response.data));
-    //   dispatch({ type: "LOGIN", payload: response.data });
+    
       setisSucess(true);
       setisLoading(false);
       router.push(`/login/${email}`)

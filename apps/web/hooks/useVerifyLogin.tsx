@@ -23,7 +23,7 @@ export const useVerifyLogin = () => {
       );
       console.log(response.data);
 
-      localStorage.setItem("monorepo-user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data));
       dispatch({ type: "LOGIN", payload: response.data });
       setisSucess(true);
       setisLoading(false);

@@ -12,6 +12,8 @@ const alata = Alata({
   display: "swap",
 });
 export default function Page(): JSX.Element {
+
+
   const { login, error, isLoading, isSucess } = useLogin();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -28,9 +30,8 @@ export default function Page(): JSX.Element {
       email,
       password,
     };
-   
-      await login(loginData);
-  
+
+    await login(loginData);
   };
   return (
     <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
