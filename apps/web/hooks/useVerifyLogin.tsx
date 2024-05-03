@@ -5,6 +5,7 @@ import axios from "axios";
 import { LoginVerifyData } from "../interfaces";
 import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
+import { browserName, os, browserVersion } from "../utils/getDeviceInfo";
 
 export const useVerifyLogin = () => {
   const router = useRouter();
@@ -23,7 +24,11 @@ export const useVerifyLogin = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKENDURL}/api/v0.1/auth/verify-login/${email}?token=${otp}`
+        `${process.env.NEXT_PUBLIC_BACKENDURL}/api/v0.1/auth/verify-login/${email}?token=${otp}`,
+        {
+          os,
+          deviceInfo: `${browserName} ${browserVersion}`,
+        }
       );
       console.log(response.data);
 

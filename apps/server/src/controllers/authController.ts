@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import asyncHandler from "../util/catchAsync";
 import UserModel from "../models/userSchema";
 import VerifyModel from "../models/tokenSchema";
+import LoginHistoryModel from "../models/loginHistorySchema";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import { createToken } from "../util/utils";
@@ -102,46 +103,49 @@ export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-
-
-
-export const verifyLoginOTP = asyncHandler(async (req: Request, res: Response) => {
-  const { token } = req.query;
-  const { id } = req.params;
-  if (!token || typeof token !== "string")
-    return res.status(400).send("Token not provided or invalid");
-  try {
-    // const user = await UserModel.findById({ _id: id });
-    console.log(id);
-    const user = await UserModel.findOne({email:id});
-    if (!user) {
-      throw Error("User Not Found!");
+export const verifyLoginOTP = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { token } = req.query;
+    const { id } = req.params;
+    const { deviceInfo, os } = req.body;
+    if (!token || typeof token !== "string")
+      return res.status(400).send("Token not provided or invalid");
+    try {
+      const user = await UserModel.findOne({ email: id });
+      if (!user) {
+        throw Error("User Not Found!");
+      }
+      const verificationToken = await VerifyModel.findOne({
+        token: token,
+        userId: user._id,
+      });
+      if (!verificationToken) return res.status(404).send("Invalid token");
+      if (verificationToken.expiresAt < new Date()) {
+        await VerifyModel.deleteOne({ _id: verificationToken._id });
+        throw Error("Token has expired");
+      }
+      await UserModel.updateOne(
+        { _id: verificationToken.userId },
+        { $set: { isVerified: true } }
+      );
+      await VerifyModel.deleteOne({ token });
+      const jwttoken = createToken(user._id);
+      await LoginHistoryModel.create({
+        os,
+        deviceInfo,
+        userId: user._id,
+      });
+      return res.status(200).json({
+        message: "Login successful!",
+        success: true,
+        token: jwttoken,
+        email: user.email,
+        id: user._id,
+        name: user.name,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send("Email verified Failed");
     }
-    const verificationToken = await VerifyModel.findOne({
-      token: token,
-      userId: user._id,
-    });
-    if (!verificationToken) return res.status(404).send("Invalid token");
-    if (verificationToken.expiresAt < new Date()) {
-      await VerifyModel.deleteOne({ _id: verificationToken._id });
-      throw Error("Token has expired");
-    }
-    await UserModel.updateOne(
-      { _id: verificationToken.userId },
-      { $set: { isVerified: true } }
-    );
-    await VerifyModel.deleteOne({ token });
-    const jwttoken = createToken(user._id);
-    return res.status(200).json({
-      message: "Login successful!",
-      success: true,
-      token: jwttoken,
-      email: user.email,
-      id: user._id,
-      name: user.name,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("Email verified Failed");
   }
-});
+);
