@@ -1,39 +1,39 @@
-"use client"
+"use client";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Alata } from "next/font/google";
-// import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { useRegister } from "../../../hooks/useRegister";
 const alata = Alata({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
 export default function Page(): JSX.Element {
-      const [email, setEmail] = useState<string>("");
-      const [password, setPassword] = useState<string>("");
-      const [name, setName] = useState<string>("");
+  const { register, error, isLoading, isSucess } = useRegister();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
-      const handleNameChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-      ) => {
-        setName(event.target.value);
-      };
-      const handleEmailChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-      ) => {
-        setEmail(event.target.value);
-      };
-      const handlePasswordChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-      ) => {
-        setPassword(event.target.value);
-      };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
-      const handleClick = () => {
-        alert(`Email Is - ${email} Password Is - ${password}`);
-      };
+  const handleClick = async () => {
+    const registerData = {
+      email,
+      password,
+      name,
+    };
+    await register(registerData);
+  };
   return (
     <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
       <div className=" bg-white sm:shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
@@ -73,6 +73,7 @@ export default function Page(): JSX.Element {
               className=" bg-rose-500 hover:bg-rose-400 text-white text-base font-semibold  rounded-xl px-3 py-4"
               key="1"
               onClick={handleClick}
+              disabled={isLoading}
             >
               Create Account
             </Button>
@@ -83,6 +84,16 @@ export default function Page(): JSX.Element {
                 <Link href="/login">Login</Link>
               </span>
             </p>
+            {error && (
+              <div className="bg-rose-200 text-rose-500 p-5 rounded-lg mt-4">
+                Invalid credentials.
+              </div>
+            )}
+            {isSucess && (
+              <div className="bg-green-200 text-green-500 p-5 rounded-lg mt-4">
+                Register Done!, A Verification link send to your Gmail.
+              </div>
+            )}
           </form>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 import { LoginVerifyData } from "../interfaces";
 import { useRouter } from "next/navigation";
+import socketIOClient, { Socket } from "socket.io-client";
 
 export const useVerifyLogin = () => {
   const router = useRouter();
@@ -13,6 +14,9 @@ export const useVerifyLogin = () => {
   const { dispatch } = useAuthContext();
 
   const verify = async ({ email, otp }: LoginVerifyData) => {
+    const socket: Socket = socketIOClient(
+      `${process.env.NEXT_PUBLIC_BACKENDURL}`
+    );
     setisLoading(true);
     setError(false);
     console.log("working");
@@ -27,6 +31,8 @@ export const useVerifyLogin = () => {
       dispatch({ type: "LOGIN", payload: response.data });
       setisSucess(true);
       setisLoading(false);
+      socket.emit("login", response.data.id);
+      socket.disconnect();
       router.push(`/`);
     } catch (error) {
       console.error("Login error:", error);

@@ -26,6 +26,11 @@ export interface LoginData {
   email: string;
   password: string;
 }
+export interface RegisterFormData {
+  email: string;
+  password: string;
+  name: string;
+}
 
 export interface LoginVerifyData {
   email: string;
