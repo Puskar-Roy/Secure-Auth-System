@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 export default function Page(): JSX.Element {
   const [activeUsers, setActiveUsers] = useState(0);
+   const browserInfo = navigator.userAgent;
+   const browserLanguage = navigator.language;
+   const platform = navigator.platform;
   useEffect(() => {
     const socket: Socket = socketIOClient(
       `${process.env.NEXT_PUBLIC_BACKENDURL}`
@@ -12,11 +15,6 @@ export default function Page(): JSX.Element {
 
     socket.on("activeUsers", (count) => {
       setActiveUsers(count);
-    });
-
-    socket.on("duplicateLogin", (message) => {
-      console.log(message);
-      alert(message);
     });
 
     return () => {
@@ -30,9 +28,15 @@ export default function Page(): JSX.Element {
   }
 
   return (
-    <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
+    <main className="w-[80%] mx-auto h-screen flex justify-center items-center flex-col">
       Hello {state.user?.name} 👋
       <div>Total Active User - {activeUsers}</div>
+      <div className="flex flex-col">
+      <div>{browserInfo}</div>
+      <div>{browserLanguage}</div>
+      <div>{platform}</div>
+
+      </div>
     </main>
   );
 }
