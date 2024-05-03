@@ -1,6 +1,8 @@
 import rateLimit from "express-rate-limit";
 import { CorsOptions } from "cors";
 import config from "../config/config";
+import jwt from "jsonwebtoken";
+
 
 export const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
@@ -27,3 +29,14 @@ export const socketOptions = {
     methods: ["GET", "POST"],
   },
 }
+
+
+
+
+
+
+export const createToken = (_id: string) => {
+  return jwt.sign({ _id: _id }, config.JWT_SECRET, {
+    expiresIn: config.JWT_COOKIE_EXPIRES_IN,
+  });
+};
