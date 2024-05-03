@@ -3,6 +3,7 @@ import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Alata } from "next/font/google";
 import Link from "next/link";
+import { useState } from "react";
 
 const alata = Alata({
   weight: "400",
@@ -10,6 +11,15 @@ const alata = Alata({
   display: "swap",
 });
 export default function Page(): JSX.Element {
+      const [email, setEmail] = useState<string>("");
+        const handleEmailChange = (
+          event: React.ChangeEvent<HTMLInputElement>
+        ) => {
+          setEmail(event.target.value);
+        };
+        const handleClick = () => {
+          alert(`Email Is - ${email}`);
+        };
   return (
     <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
       <div className=" bg-white sm:shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
@@ -25,12 +35,15 @@ export default function Page(): JSX.Element {
                 type="text"
                 placeholder="Enter Email"
                 className="bg-slate-200  p-3 border-2 rounded-xl text-black focus:outline-none focus:ring-2 ring-rose-500"
+                value={email}
+                onChange={handleEmailChange}
               />
             </div>
             <Button
               appName="web"
               className=" bg-rose-500 hover:bg-rose-400 text-white text-base font-semibold  rounded-xl px-3 py-4"
               key="1"
+              onClick={handleClick}
             >
               Find Account
             </Button>

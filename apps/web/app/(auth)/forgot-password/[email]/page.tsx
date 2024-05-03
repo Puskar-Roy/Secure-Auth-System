@@ -6,6 +6,18 @@ import { Input } from "@repo/ui/input";
 
 const page = () => {
   const params = useParams<{ email: string }>();
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+       setPassword(event.target.value);
+     };
+     const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+       setConfirmPassword(event.target.value);
+     };
+
+
+
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const refs = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -74,11 +86,15 @@ const page = () => {
                     type="text"
                     placeholder="Enter New Password"
                     className="bg-slate-200  w-full border-2 rounded-xl text-black focus:outline-none focus:ring-2 ring-rose-500"
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
                   <Input
                     type="text"
                     placeholder="Confirm New Password"
                     className="bg-slate-200  w-full border-2 rounded-xl text-black focus:outline-none focus:ring-2 ring-rose-500"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
                   />
                 </div>
 
