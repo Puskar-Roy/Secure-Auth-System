@@ -22,7 +22,7 @@ app.use((req, res, next) => {
   res.setHeader("X-XSS-Protection", "1; mode=block");
   next();
 });
-
+import "./database/connectDb";
 const server = http.createServer(app);
 const io = new Server(server,socketOptions);
 
