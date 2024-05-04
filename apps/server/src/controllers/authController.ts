@@ -227,6 +227,11 @@ export const logout = asyncHandler(async (req: Request, res: Response) => {
 export const verifyUser = asyncHandler(async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ message: "User ID is missing in the request" });
+    }
     const { deviceInfo, os } = req.body;
     const user = await UserModel.findById(userId);
     if (!user) {

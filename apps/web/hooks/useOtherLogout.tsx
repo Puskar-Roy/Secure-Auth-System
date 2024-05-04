@@ -1,11 +1,9 @@
-import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export const useLogout = () => {
-  const { dispatch } = useAuthContext();
+export const useOtherLogout = () => {
   const router = useRouter();
-  const logout = async ({
+  const otherLogout = async ({
     userId,
     os,
     browserVersion,
@@ -26,12 +24,10 @@ export const useLogout = () => {
             action: "Logout",
           }
         );
-      localStorage.removeItem("user");
-      dispatch({ type: "LOGOUT" });
-      router.push(`/login`);
+      window.location.reload();
     } catch (error) {
       console.error("Login error:", error);
     }
   };
-  return { logout };
+  return { otherLogout };
 };

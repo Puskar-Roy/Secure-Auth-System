@@ -3,13 +3,31 @@ import React from "react";
 import { MdDevices } from "react-icons/md";
 import { FaMobileAlt } from "react-icons/fa";
 import { browserName, os as oss, browserVersion } from "../utils/getDeviceInfo";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
+import { useOtherLogout } from "../hooks/useOtherLogout";
+
 const Card = ({ os, timestamp }: { os: string; timestamp: string }) => {
+  const { state } = useAuthContext();
+  const { logout } = useLogout();
+  const { otherLogout } = useOtherLogout();
   let userBrowser = `${browserName} ${browserVersion} ${oss}`;
   const handleClick = () => {
-    alert("Current Brwoser");
+    logout({
+      userId: state.user?.id,
+      browserName,
+      browserVersion,
+      os: oss,
+    });
   };
   const handleClick1 = () => {
-    alert("Normal Brwoser");
+    let info = os.split(" ");
+    otherLogout({
+      userId: state.user?.id,
+      browserName: info[0],
+      browserVersion: info[1],
+      os: `${info[2]} ${info[3]}`,
+    });
   };
   return (
     <div>

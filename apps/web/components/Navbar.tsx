@@ -9,6 +9,7 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Link from "next/link";
 import { alata } from "../utils/utli";
+import { browserName, os, browserVersion } from "../utils/getDeviceInfo";
 export const NavbarData: NavbarItems[] = [
   {
     href: "/login",
@@ -33,14 +34,19 @@ const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
 
 const Navbar = () => {
   const { state } = useAuthContext();
-  const { logout } = useLogout({ userId: state.user?.id });
+  const { logout } = useLogout();
 
   const [toggle, setToggle] = useState<boolean>(false);
   const toogleMenu = () => {
     setToggle(!toggle);
   };
   const handleClick = () => {
-    logout();
+    logout({
+      userId: state.user?.id,
+      browserName,
+      browserVersion,
+      os,
+    });
     setToggle(!toggle);
   };
   return (
