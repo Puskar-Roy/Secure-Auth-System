@@ -8,7 +8,7 @@ import axios from "axios";
 import { GoDotFill } from "react-icons/go";
 import Card from "../../components/Card";
 import { alata } from "../../utils/utli";
-
+import CardLoader from "../../components/CardLoader";
 export default function Page(): JSX.Element {
   const { state } = useAuthContext();
   const router = useRouter();
@@ -78,13 +78,24 @@ export default function Page(): JSX.Element {
           Manage Access and <span className="text-rose-400 ">Devices</span>
         </div>
         <div className="w-[80%] mx-auto flex items-center justify-center flex-wrap gap-5">
-          {loginDevice.map((device) => (
+          {loginDevice ? (
+            loginDevice.map((device) => (
+              <Card
+                key={device.deviceId}
+                os={device.deviceName}
+                timestamp={new Date(device.lastLogin || "").toLocaleString()}
+              />
+            ))
+          ) : (
+            <CardLoader />
+          )}
+          {/* {loginDevice.map((device) => (
             <Card
               key={device.deviceId}
               os={device.deviceName}
               timestamp={new Date(device.lastLogin || "").toLocaleString()}
             />
-          ))}
+          ))} */}
         </div>
       </div>
 
