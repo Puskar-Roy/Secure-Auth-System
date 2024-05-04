@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircle } from "react-icons/io";
 // import logo from "/logo1.png";
 import { NavbarItems } from "../interfaces";
-// import { useLogout } from "../hooks/useLogout";
+import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Link from "next/link";
 
@@ -19,7 +19,6 @@ export const NavbarData: NavbarItems[] = [
   },
 ];
 
-
 const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
   return (
     <li
@@ -32,7 +31,7 @@ const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
 };
 
 const Navbar = () => {
-//   const { logout } = useLogout();
+  const { logout } = useLogout();
   const { state } = useAuthContext();
 
   const [toggle, setToggle] = useState<boolean>(false);
@@ -40,14 +39,13 @@ const Navbar = () => {
     setToggle(!toggle);
   };
   const handleClick = () => {
-    // logout();
+    logout();
     setToggle(!toggle);
   };
   return (
     <header className="shadow-lg flex justify-between items-center ">
       <nav className="flex justify-between items-center w-[80%] mx-auto my-[30px]">
         <Link href="/" className="z-20 flex items-center gap-1">
-       
           <h2 className="text-2xl font-bold text-rose-400 ubuntu-bold">
             Authhub
           </h2>
