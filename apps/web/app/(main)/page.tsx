@@ -84,9 +84,9 @@ export default function Page(): JSX.Element {
 
       <div className="flex bg-green-100 p-3 rounded-xl justify-center items-center gap-1 flex-row fixed right-4 sm:right-8 bottom-10 sm:bottom-auto sm:top-20 z-20">
         <GoDotFill className="text-green-500 text-xl" />
-        Active Users -
-        <span className="text-rose-500 font-semibold text-xl">
-          {activeUsers}
+        Online
+        <span className="text-green-500 font-semibold text-lg">
+          ({activeUsers})
         </span>
       </div>
       <div className="w-[80%] mx-auto flex justify-center items-center flex-col gap-10 mt-10">

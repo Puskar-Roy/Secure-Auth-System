@@ -1,10 +1,16 @@
+"use client";
 import React from "react";
 import { MdDevices } from "react-icons/md";
 import { FaMobileAlt } from "react-icons/fa";
 import { browserName, os as oss, browserVersion } from "../utils/getDeviceInfo";
-import { GoDotFill } from "react-icons/go";
 const Card = ({ os, timestamp }: { os: string; timestamp: string }) => {
   let userBrowser = `${browserName} ${browserVersion} ${oss}`;
+  const handleClick = () => {
+    alert("Current Brwoser");
+  };
+  const handleClick1 = () => {
+    alert("Normal Brwoser");
+  };
   return (
     <div>
       <div className="service-card w-[300px] shadow-xl cursor-pointer snap-start shrink-0 py-8 px-6 bg-white flex flex-col items-start gap-1 transition-all duration-300 group hover:bg-slate-200 rounded-2xl">
@@ -16,8 +22,8 @@ const Card = ({ os, timestamp }: { os: string; timestamp: string }) => {
           )}
 
           {os === userBrowser ? (
-            <p className="text-green-600 text-sm p-2 bg-green-100 rounded-lg flex gap-1">
-              <GoDotFill className="text-green-500 text-xl" /> Active
+            <p className="text-green-600 font-bold text-sm p-2 bg-green-100 rounded-lg flex gap-1">
+              Current Device
             </p>
           ) : (
             <p className="text-gray-400 text-sm"></p>
@@ -33,7 +39,10 @@ const Card = ({ os, timestamp }: { os: string; timestamp: string }) => {
           <p className="font-semibold text-lg text-rose-500">Last Login</p>
           <p className="text-[0.7rem] font-bold self-start">{timestamp}</p>
         </div>
-        <button className="mt-2 relative inline-block px-4 py-3 font-bold text-sm border-none rounded-lg bg-rose-400 hover:bg-rose-300 text-white transition-transform transform-gpu hover:translate-y-[-0.33em] active:translate-y-0">
+        <button
+          onClick={os === userBrowser ? handleClick : handleClick1}
+          className="mt-2 relative inline-block px-4 py-3 font-bold text-sm border-none rounded-lg bg-rose-400 hover:bg-rose-300 text-white transition-transform transform-gpu hover:translate-y-[-0.33em] active:translate-y-0"
+        >
           <span className="absolute inset-0 z-[-1] border-2 border-black rounded-lg"></span>
           Sign Out
         </button>
