@@ -28,6 +28,7 @@ export const useVerifyLogin = () => {
         {
           os,
           deviceInfo: `${browserName} ${browserVersion}`,
+          action: "Login",
         }
       );
       console.log(response.data);

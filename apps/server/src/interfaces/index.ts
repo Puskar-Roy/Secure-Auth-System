@@ -7,6 +7,7 @@ export interface User extends Document {
   profilePic: string;
   verificationTokens: VerificationToken[];
   loginHistory?: LoginHistory[];
+  loggedInDevices: LoggedInDevice[];
   isVerified: boolean;
 }
 
@@ -23,4 +24,12 @@ export interface LoginHistory extends Document {
   deviceInfo: string;
   os:string;
   timestamp: Date;
+  action?:string;
+}
+
+
+export interface LoggedInDevice {
+  deviceId: string;
+  deviceName: string;
+  lastLogin: Date;
 }

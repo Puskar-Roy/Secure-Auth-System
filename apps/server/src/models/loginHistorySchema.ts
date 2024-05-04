@@ -12,6 +12,7 @@ const loginHistorySchema = new Schema<LoginHistory>({
     required: true,
   },
   os: { type: String, required: true },
+  action: { type: String, required: true },
   timestamp: {
     type: Date,
     default: Date.now,

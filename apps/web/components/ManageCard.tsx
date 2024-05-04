@@ -1,5 +1,5 @@
 import React from "react";
-import { CgBrowser } from "react-icons/cg";
+// import { CgBrowser } from "react-icons/cg";
 import { MdDevices, MdOutlineAccessTimeFilled } from "react-icons/md";
 
 const ManageCard = ({ os, timestamp }: { os: string; timestamp: string }) => {
@@ -7,14 +7,9 @@ const ManageCard = ({ os, timestamp }: { os: string; timestamp: string }) => {
     <div className="flex justify-center items-center gap-5 hover:bg-slate-100 cursor-pointer">
       <div className="w-[22rem] h-[10rem]  p-[50px] shadow-lg justify-center flex items-center flex-col rounded-xl gap-2">
         <div className="flex justify-center items-center gap-12">
-          {/* <div className="flex justify-center gap-2 items-center ">
-            <CgBrowser className="text-3xl" />{" "}
-            <span className="text-lg text-rose-500 font-semibold">Opera</span>
-          </div> */}
-
           <div className="flex justify-center items-center gap-2">
             <MdDevices className="text-3xl" />
-            <span className="text-lg text-rose-500 font-semibold">{os}</span>
+            <span className="text-sm text-rose-500 font-semibold">{os}</span>
           </div>
         </div>
 

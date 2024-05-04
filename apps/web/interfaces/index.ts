@@ -44,4 +44,15 @@ export interface LoginHistory {
   deviceInfo: string;
   os: string;
   timestamp: string;
+  action:string;
 }
+
+export interface LoginDevice {
+  deviceId: string;
+  deviceName: string;
+  lastLogin: string;
+  _id: string;
+}
+
+
+

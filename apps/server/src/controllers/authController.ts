@@ -107,7 +107,7 @@ export const verifyLoginOTP = asyncHandler(
   async (req: Request, res: Response) => {
     const { token } = req.query;
     const { id } = req.params;
-    const { deviceInfo, os } = req.body;
+    const { deviceInfo, os, action } = req.body;
     if (!token || typeof token !== "string")
       return res.status(400).send("Token not provided or invalid");
     try {
@@ -129,12 +129,30 @@ export const verifyLoginOTP = asyncHandler(
         { $set: { isVerified: true } }
       );
       await VerifyModel.deleteOne({ token });
+
+      const existingDeviceIndex = user.loggedInDevices.findIndex(
+        (device) => device.deviceName === `${deviceInfo} ${os}`
+      );
+
+      if (existingDeviceIndex !== -1) {
+        user.loggedInDevices[existingDeviceIndex].lastLogin = new Date();
+      } else {
+        user.loggedInDevices.push({
+          deviceId: user._id,
+          deviceName: `${deviceInfo} ${os}`,
+          lastLogin: new Date(),
+        });
+      }
+
+      await user.save();
       const jwttoken = createToken(user._id);
       await LoginHistoryModel.create({
         os,
         deviceInfo,
         userId: user._id,
+        action,
       });
+
       return res.status(200).json({
         message: "Login successful!",
         success: true,
@@ -162,7 +180,12 @@ export const getLoginHistory = asyncHandler(
 
       const loginHistory = await LoginHistoryModel.find({ userId });
 
-      res.status(200).json(loginHistory);
+      res
+        .status(200)
+        .json({
+          loginhistory: loginHistory,
+          loggedInDevices: user.loggedInDevices,
+        });
     } catch (error) {
       console.error("Error fetching login history:", error);
       res.status(500).json({ message: "Failed to fetch login history" });
