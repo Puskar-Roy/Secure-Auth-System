@@ -67,8 +67,8 @@ export default function Page(): JSX.Element {
           🖐️
         </div>
       </div>
-      <div className="flex justify-center items-center flex-col gap-8">
-        <div className={`text-4xl font-semibold ${alata.className}`}>
+      <div className="flex justify-center items-center flex-col gap-8 mt-[30px] sm:mt-[20px]">
+        <div className={`text-4xl font-semibold ${alata.className} text-center`}>
           Manage Access and <span className="text-rose-400 ">Devices</span>
         </div>
         <div className="w-[80%] mx-auto flex items-center justify-center flex-wrap gap-5">
