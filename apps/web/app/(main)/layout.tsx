@@ -3,6 +3,7 @@ import { useVerifyUserDevice } from "../../hooks/useVerifyUser";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Loder from "../../components/Loder";
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +20,11 @@ export default function RootLayout({
   });
   console.log("Device Status - ", isDeviceVerified);
   if (isDeviceVerified === null) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center gap-3 min-h-[70vh]">
+        <Loder />
+      </div>
+    );
   }
 
   if (!isDeviceVerified) {
