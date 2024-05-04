@@ -15,6 +15,7 @@ export default function Page(): JSX.Element {
   const [activeUsers, setActiveUsers] = useState(0);
   const [loginHistory, setLoginHistory] = useState<LoginHistory[]>([]);
   const [loginDevice, setLoginDevice] = useState<LoginDevice[]>([]);
+  const [rerenderTrigger, setRerenderTrigger] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -24,6 +25,10 @@ export default function Page(): JSX.Element {
 
     socket.on("activeUsers", (count) => {
       setActiveUsers(count);
+    });
+
+    socket.on("rerender", () => {
+      setRerenderTrigger((prev) => !prev);
     });
 
     return () => {
@@ -46,11 +51,10 @@ export default function Page(): JSX.Element {
         setLoading(false);
       }
     };
-
     if (state.user) {
       fetchLoginHistory();
     }
-  }, [state.user]);
+  }, [state.user, rerenderTrigger]);
 
   if (!state.user) {
     router.push("/login");
@@ -68,7 +72,9 @@ export default function Page(): JSX.Element {
         </div>
       </div>
       <div className="flex justify-center items-center flex-col gap-8 mt-[30px] sm:mt-[20px]">
-        <div className={`text-4xl font-semibold ${alata.className} text-center`}>
+        <div
+          className={`text-4xl font-semibold ${alata.className} text-center`}
+        >
           Manage Access and <span className="text-rose-400 ">Devices</span>
         </div>
         <div className="w-[80%] mx-auto flex items-center justify-center flex-wrap gap-5">

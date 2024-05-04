@@ -38,14 +38,6 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new CheckError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-
-
-
-
-
-
-
-
 let activeUsers = 0;
 const loggedInUserIds: string[] = [];
 
@@ -59,6 +51,7 @@ io.on("connection", (socket) => {
 
     if (loggedInUserIds.includes(userId)) {
       console.log("duplicateLogin event start for userId:", userId);
+      io.emit("rerender");
       await sendAleart(userId);
     } else {
       loggedInUserIds.push(userId);
@@ -78,9 +71,6 @@ io.on("connection", (socket) => {
     }
   });
 });
-
-
-
 
 server.listen(config.PORT, () => {
   console.log(`[⚡] Server Is Running on ${config.BACKENDURL}`);
