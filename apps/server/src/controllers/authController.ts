@@ -217,10 +217,38 @@ export const logout = asyncHandler(async (req: Request, res: Response) => {
       action,
     });
 
-
     return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     console.error("Logout error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+export const verifyUser = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { deviceInfo, os } = req.body;
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const deviceIndex = user.loggedInDevices.findIndex(
+      (device) => device.deviceName === `${deviceInfo} ${os}`
+    );
+
+    if (deviceIndex === -1) {
+      return res
+        .status(200)
+        .json({ message: "User is not logged in from the specified device" });
+    }
+
+    // Device is present, user is logged in from this device
+    return res
+      .status(200)
+      .json({ message: "User is logged in from the specified device" });
+  } catch (error) {
+    console.error("Verify user error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
