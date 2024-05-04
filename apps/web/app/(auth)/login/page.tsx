@@ -5,9 +5,8 @@ import { Input } from "@repo/ui/input";
 import Link from "next/link";
 import { useLogin } from "../../../hooks/useLogin";
 import { alata } from "../../../utils/utli";
+import ButtonLoder from "../../../components/ButtonLoder";
 export default function Page(): JSX.Element {
-
-
   const { login, error, isLoading, isSucess } = useLogin();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -66,7 +65,11 @@ export default function Page(): JSX.Element {
               onClick={handleClick}
               disabled={isLoading}
             >
-              Login
+              {isLoading ? (
+                <ButtonLoder />
+              ) : (
+                <p className="text-white text-base font-semibold">Login</p>
+              )}
             </Button>
 
             <p className="text-center text-sm font-medium">

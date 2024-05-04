@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRegister } from "../../../hooks/useRegister";
 import { alata } from "../../../utils/utli";
+import ButtonLoder from "../../../components/ButtonLoder";
 export default function Page(): JSX.Element {
   const { register, error, isLoading, isSucess } = useRegister();
   const [email, setEmail] = useState<string>("");
@@ -70,7 +71,7 @@ export default function Page(): JSX.Element {
               onClick={handleClick}
               disabled={isLoading}
             >
-              Create Account
+              {isLoading ? <ButtonLoder /> : <p>Create Account</p>}
             </Button>
 
             <p className="text-center text-sm font-medium">

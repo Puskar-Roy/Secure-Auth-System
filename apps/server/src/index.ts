@@ -44,26 +44,19 @@ const loggedInUserIds: string[] = [];
 io.on("connection", (socket) => {
   activeUsers++;
   io.emit("activeUsers", activeUsers);
-  console.log("New user connected. Active users:", activeUsers);
 
   socket.on("login", async (userId: string) => {
-    console.log("login event start for userId:", userId);
-
     if (loggedInUserIds.includes(userId)) {
-      console.log("duplicateLogin event start for userId:", userId);
       io.emit("rerender");
       await sendAleart(userId);
     } else {
       loggedInUserIds.push(userId);
-
-      console.log("User logged in. Active userIds:", loggedInUserIds);
     }
   });
 
   socket.on("disconnect", () => {
     activeUsers--;
     io.emit("activeUsers", activeUsers);
-    console.log("User disconnected. Active users:", activeUsers);
 
     const index = loggedInUserIds.indexOf(socket.id);
     if (index !== -1) {

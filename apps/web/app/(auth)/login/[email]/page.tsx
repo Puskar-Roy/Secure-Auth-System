@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useVerifyLogin } from "../../../../hooks/useVerifyLogin";
+import ButtonLoder from "../../../../components/ButtonLoder";
 
 const page = () => {
   const { verify, error, isLoading, isSucess } = useVerifyLogin();
@@ -79,7 +80,7 @@ const page = () => {
                       disabled={isLoading}
                       className="flex flex-row items-center justify-center text-center w-full border rounded-xl hover:bg-rose-400 outline-none py-5 bg-rose-500 border-none text-white shadow-sm text-base font-semibold"
                     >
-                      Verify Account
+                      {isLoading ? <ButtonLoder /> : <p>Verify Account</p>}
                     </button>
                   </div>
 

@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 export const useOtherLogout = () => {
-  const router = useRouter();
+
   const otherLogout = async ({
     userId,
     os,
