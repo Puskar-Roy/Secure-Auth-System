@@ -7,7 +7,6 @@ import { LoginHistory, LoginDevice } from "../../interfaces";
 import axios from "axios";
 import { Alata } from "next/font/google";
 import { GoDotFill } from "react-icons/go";
-import ManageCard from "../../components/ManageCard";
 import Card from "../../components/Card";
 const alata = Alata({
   weight: "400",
@@ -63,7 +62,7 @@ export default function Page(): JSX.Element {
   }
 
   return (
-    <main className="w-[80%] mx-auto min-h-screen flex  items-center flex-col ">
+    <main className="w-[80%] mx-auto min-h-[80vh] flex  items-center flex-col ">
       <div className="flex flex-col gap-6 justify-center items-center mt-[50px]">
         <div className="text-3xl">
           Hello{" "}
@@ -88,7 +87,7 @@ export default function Page(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex bg-green-100 p-3 rounded-xl justify-center items-center gap-1 flex-row fixed right-4 sm:right-8 bottom-10 sm:bottom-auto sm:top-5 z-20">
+      <div className="flex bg-green-100 p-3 rounded-xl justify-center items-center gap-1 flex-row fixed right-4 sm:right-8 bottom-10 sm:bottom-auto sm:top-20 z-20">
         <GoDotFill className="text-green-500 text-xl" />
         Active Users -
         <span className="text-rose-500 font-semibold text-xl">

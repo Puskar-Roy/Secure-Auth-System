@@ -55,4 +55,11 @@ export interface LoginDevice {
 }
 
 
+export interface NavbarItems {
+  href: string;
+  tags: string;
+  closeNav?: () => void;
+}
+
+
 
