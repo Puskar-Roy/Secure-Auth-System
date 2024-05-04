@@ -36,6 +36,8 @@ export default function Page(): JSX.Element {
     };
   }, []);
 
+
+
   useEffect(() => {
     const fetchLoginHistory = async () => {
       setLoading(true);
