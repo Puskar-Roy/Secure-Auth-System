@@ -45,49 +45,8 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
 
 
 
-// =========================================================================
-// let activeUsers = 0;
-// const loggedInUserIds: string[] = [];
-
-// io.on("connection", (socket) => {
-//   activeUsers++;
-//   io.emit("activeUsers", activeUsers);
-//   console.log("New user connected. Active users:", activeUsers);
-
-//   socket.on("login", async (userId: string) => {
-//     console.log("login event start for userId:", userId);
-
-//     if (loggedInUserIds.includes(userId)) {
-//       console.log("duplicateLogin event start for userId:", userId);
-//       await sendAleart(userId);
-//     } else {
-//       loggedInUserIds.push(userId);
-
-//       console.log("User logged in. Active userIds:", loggedInUserIds);
-//     }
-//   });
-
-//   socket.on("disconnect", () => {
-//     activeUsers--;
-//     io.emit("activeUsers", activeUsers);
-//     console.log("User disconnected. Active users:", activeUsers);
-
-//     const index = loggedInUserIds.indexOf(socket.id);
-//     if (index !== -1) {
-//       loggedInUserIds.splice(index, 1);
-//     }
-//   });
-// });
-
-// ================================================================================
-
-
-interface ConnectedUser {
-  socketId: string;
-}
 
 let activeUsers = 0;
-const connectedUsers: { [userId: string]: ConnectedUser } = {}; // Typed object with userId as key and socketId as value
 const loggedInUserIds: string[] = [];
 
 io.on("connection", (socket) => {
@@ -95,64 +54,32 @@ io.on("connection", (socket) => {
   io.emit("activeUsers", activeUsers);
   console.log("New user connected. Active users:", activeUsers);
 
-socket.on("login", async (userId: string) => {
-  console.log("login event start for userId:", userId);
+  socket.on("login", async (userId: string) => {
+    console.log("login event start for userId:", userId);
 
-  if (loggedInUserIds.includes(userId)) {
-    console.log("duplicateLogin event start for userId:", userId);
-    await sendAlert(userId);
-  } else {
-    connectedUsers[userId] = { socketId: socket.id }; // Store socket ID for the user
-    loggedInUserIds.push(userId);
+    if (loggedInUserIds.includes(userId)) {
+      console.log("duplicateLogin event start for userId:", userId);
+      await sendAleart(userId);
+    } else {
+      loggedInUserIds.push(userId);
 
-    console.log("User logged in. Active userIds:", loggedInUserIds);
-  }
-});
+      console.log("User logged in. Active userIds:", loggedInUserIds);
+    }
+  });
 
-socket.on("disconnect", () => {
-  activeUsers--;
-  io.emit("activeUsers", activeUsers);
-  console.log("User disconnected. Active users:", activeUsers);
+  socket.on("disconnect", () => {
+    activeUsers--;
+    io.emit("activeUsers", activeUsers);
+    console.log("User disconnected. Active users:", activeUsers);
 
-  const userId = Object.keys(connectedUsers).find(
-    (id) => connectedUsers[id].socketId === socket.id
-  );
-  if (userId) {
-    console.log("Removing user from connectedUsers:", userId);
-    delete connectedUsers[userId];
-    const index = loggedInUserIds.indexOf(userId);
+    const index = loggedInUserIds.indexOf(socket.id);
     if (index !== -1) {
-      console.log("Removing user ID from loggedInUserIds:", userId);
       loggedInUserIds.splice(index, 1);
     }
-  }
+  });
 });
-});
-
-async function sendAlert(userId: string) {
-  // Implement logic to send alert to the user with userId
-  // You can use socket.id to emit events to the specific user's socket
-  if (connectedUsers[userId]) {
-    io.to(connectedUsers[userId].socketId).emit(
-      "alert",
-      "You are logged in from another device."
-    );
-  }
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-// ===================================================================================
 
 
 server.listen(config.PORT, () => {
