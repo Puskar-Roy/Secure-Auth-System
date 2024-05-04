@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircle } from "react-icons/io";
-// import logo from "/logo1.png";
+import logo from "../public/authlogo.jpg";
+import Image from "next/image";
 import { NavbarItems } from "../interfaces";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Link from "next/link";
-
+import { alata } from "../utils/utli";
 export const NavbarData: NavbarItems[] = [
   {
     href: "/login",
@@ -23,7 +24,7 @@ const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
   return (
     <li
       onClick={closeNav}
-      className="hover:text-rose-500 font-semibold text-lg gabarito-regular"
+      className={`hover:text-rose-500 font-semibold text-lg ${alata.className}`}
     >
       <Link href={href}>{tags}</Link>
     </li>
@@ -45,8 +46,9 @@ const Navbar = () => {
   return (
     <header className="shadow-lg flex justify-between items-center ">
       <nav className="flex justify-between items-center w-[80%] mx-auto my-[30px]">
-        <Link href="/" className="z-20 flex items-center gap-1">
-          <h2 className="text-2xl font-bold text-rose-400 ubuntu-bold">
+        <Link href="/" className="z-20 flex items-center gap-2">
+            <Image src={logo} height={50} width={50} alt="logo"/>
+          <h2 className={`text-2xl font-bold text-rose-400 ${alata.className}`}>
             Authhub
           </h2>
         </Link>

@@ -2,15 +2,9 @@
 import { useState } from "react";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
-import { Alata } from "next/font/google";
 import Link from "next/link";
 import { useLogin } from "../../../hooks/useLogin";
-
-const alata = Alata({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+import { alata } from "../../../utils/utli";
 export default function Page(): JSX.Element {
 
 
@@ -34,8 +28,8 @@ export default function Page(): JSX.Element {
     await login(loginData);
   };
   return (
-    <main className="w-[80%] mx-auto h-screen flex justify-center items-center">
-      <div className=" bg-white sm:shadow-xl mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
+    <main className="w-[80%] mx-auto h-[70vh] flex justify-center items-center">
+      <div className=" bg-white mx-auto w-full sm:w-[90%] rounded-2xl flex justify-center items-center h-[70%]">
         <div className="w-[90%] sm:w-[35%] mx-auto flex gap-8 flex-col">
           <div
             className={`font-semibold text-4xl text-center ${alata.className}`}

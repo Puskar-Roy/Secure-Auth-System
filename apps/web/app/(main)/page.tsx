@@ -5,14 +5,9 @@ import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 import { LoginHistory, LoginDevice } from "../../interfaces";
 import axios from "axios";
-import { Alata } from "next/font/google";
 import { GoDotFill } from "react-icons/go";
 import Card from "../../components/Card";
-const alata = Alata({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+import { alata } from "../../utils/utli";
 
 export default function Page(): JSX.Element {
   const { state } = useAuthContext();
