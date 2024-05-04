@@ -32,8 +32,8 @@ const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
 };
 
 const Navbar = () => {
-  const { logout } = useLogout();
   const { state } = useAuthContext();
+  const { logout } = useLogout({ userId: state.user?.id });
 
   const [toggle, setToggle] = useState<boolean>(false);
   const toogleMenu = () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
     <header className="shadow-lg flex justify-between items-center ">
       <nav className="flex justify-between items-center w-[80%] mx-auto my-[30px]">
         <Link href="/" className="z-20 flex items-center gap-2">
-            <Image src={logo} height={50} width={50} alt="logo"/>
+          <Image src={logo} height={50} width={50} alt="logo" />
           <h2 className={`text-2xl font-bold text-rose-400 ${alata.className}`}>
             Authhub
           </h2>

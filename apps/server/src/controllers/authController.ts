@@ -180,15 +180,47 @@ export const getLoginHistory = asyncHandler(
 
       const loginHistory = await LoginHistoryModel.find({ userId });
 
-      res
-        .status(200)
-        .json({
-          loginhistory: loginHistory,
-          loggedInDevices: user.loggedInDevices,
-        });
+      res.status(200).json({
+        loginhistory: loginHistory,
+        loggedInDevices: user.loggedInDevices,
+      });
     } catch (error) {
       console.error("Error fetching login history:", error);
       res.status(500).json({ message: "Failed to fetch login history" });
     }
   }
 );
+
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { deviceInfo, os, action } = req.body;
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const deviceIndex = user.loggedInDevices.findIndex(
+      (device) => device.deviceName === `${deviceInfo} ${os}`
+    );
+    if (deviceIndex === -1) {
+      return res.status(404).json({ message: "Device not found for the user" });
+    }
+    user.loggedInDevices.splice(deviceIndex, 1);
+
+    await user.save();
+
+    await LoginHistoryModel.create({
+      os,
+      deviceInfo,
+      userId: user._id,
+      action,
+    });
+
+
+    return res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});

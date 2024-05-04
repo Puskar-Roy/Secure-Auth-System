@@ -5,7 +5,7 @@ import { LoginData } from "../interfaces";
 import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
-    const router = useRouter()
+  const router = useRouter()
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [isSucess, setisSucess] = useState<boolean>(false);
