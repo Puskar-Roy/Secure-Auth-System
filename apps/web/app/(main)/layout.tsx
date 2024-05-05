@@ -18,7 +18,14 @@ export default function RootLayout({
   useEffect(() => {
     verifyUserDevice();
   });
-  console.log("Device Status - ", isDeviceVerified);
+
+  if (!state.user) {
+    router.push("/login");
+  }
+
+  if (state.user?.role !== "User") {
+    router.push("/admin");
+  }
   if (isDeviceVerified === null) {
     return (
       <div className="flex justify-center items-center gap-3 min-h-[70vh]">

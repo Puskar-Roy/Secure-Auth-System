@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useRouter } from "next/navigation";
 import socketIOClient, { Socket } from "socket.io-client";
 import { LoginHistory, LoginDevice } from "../../interfaces";
 import axios from "axios";
@@ -9,9 +8,9 @@ import { GoDotFill } from "react-icons/go";
 import Card from "../../components/Card";
 import { alata } from "../../utils/utli";
 import CardLoader from "../../components/CardLoader";
+
 export default function Page(): JSX.Element {
   const { state } = useAuthContext();
-  const router = useRouter();
   const [activeUsers, setActiveUsers] = useState(0);
   const [loginHistory, setLoginHistory] = useState<LoginHistory[]>([]);
   const [loginDevice, setLoginDevice] = useState<LoginDevice[]>([]);
@@ -36,8 +35,6 @@ export default function Page(): JSX.Element {
     };
   }, []);
 
-
-
   useEffect(() => {
     const fetchLoginHistory = async () => {
       setLoading(true);
@@ -58,9 +55,7 @@ export default function Page(): JSX.Element {
     }
   }, [state.user, rerenderTrigger]);
 
-  if (!state.user) {
-    router.push("/login");
-  }
+
 
   return (
     <main className="w-[80%] mx-auto min-h-[80vh] flex  items-center flex-col ">
@@ -91,13 +86,6 @@ export default function Page(): JSX.Element {
           ) : (
             <CardLoader />
           )}
-          {/* {loginDevice.map((device) => (
-            <Card
-              key={device.deviceId}
-              os={device.deviceName}
-              timestamp={new Date(device.lastLogin || "").toLocaleString()}
-            />
-          ))} */}
         </div>
       </div>
 
@@ -112,10 +100,10 @@ export default function Page(): JSX.Element {
         <div
           className={`font-semibold text-4xl text-center ${alata.className}`}
         >
-          Login <span className="text-rose-500">History</span>
+          Auth <span className="text-rose-500">History</span>
         </div>
         {loading ? (
-          <div>Loading...</div>
+          <CardLoader />
         ) : (
           <div className="relative overflow-x-auto max-h-[400px] w-[100%] mx-auto mb-[100px]">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">

@@ -4,11 +4,11 @@ export interface User extends Document {
   name: string;
   email: string;
   password: string;
-  profilePic: string;
   verificationTokens: VerificationToken[];
   loginHistory?: LoginHistory[];
   loggedInDevices: LoggedInDevice[];
   isVerified: boolean;
+  role: string;
 }
 
 export interface VerificationToken extends Document {

@@ -11,6 +11,7 @@ export interface User {
   name?: string;
   message: string;
   success: boolean;
+  role:string;
 }
 
 export interface Action {

@@ -160,6 +160,7 @@ export const verifyLoginOTP = asyncHandler(
         email: user.email,
         id: user._id,
         name: user.name,
+        role: user.role,
       });
     } catch (error) {
       console.log(error);
