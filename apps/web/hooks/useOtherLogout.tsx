@@ -1,7 +1,7 @@
 import axios from "axios";
+import { Socket } from "socket.io-client";
 
-export const useOtherLogout = () => {
-
+export const useOtherLogout = (socket?: Socket) => {
   const otherLogout = async ({
     userId,
     os,
@@ -23,9 +23,10 @@ export const useOtherLogout = () => {
             action: "Logout",
           }
         );
+      socket?.emit("logout");
       window.location.reload();
     } catch (error) {
-      alert(`Error Here ${browserName} ${browserVersion}`)
+      alert(`Error Here ${browserName} ${browserVersion}`);
       console.error("Login error:", error);
     }
   };

@@ -69,9 +69,9 @@ export const sendLoginOTPwithNodemailer = async (userId: string) => {
       from: "puskarroy300@gmail.com",
       to: user.email,
       subject: "OTP For Login",
-      html: ` <h2>Hey ${user.name} 👋,Verify Your OTP For Login, This Is Your OTP - ${token}</h2>
+      html: ` <p>Hey ${user.name} 👋,Verify Your OTP For Login, This Is Your OTP - ${token}</p>
 
-  <h4">Please note that this OTP will expire in 10 minutes. If you did not request this verification, you can safely ignore this email.</h4>
+  <p>Please note that this OTP will expire in 10 minutes. If you did not request this verification, you can safely ignore this email.</p>
   <h3 style="font-family: Arial, sans-serif;">Thank you,<br>Puskar Roy</h3>`,
     };
 

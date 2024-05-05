@@ -3,18 +3,19 @@ import React from "react";
 import { MdDevices } from "react-icons/md";
 import { FaMobileAlt } from "react-icons/fa";
 import { useOtherLogout } from "../hooks/useOtherLogout";
-
+import { Socket } from "socket.io-client";
 const AdminCard = ({
   userId,
   os,
   timestamp,
+  socket
 }: {
   userId: string;
   os: string;
   timestamp: string;
+  socket: Socket | undefined;
 }) => {
-
-  const { otherLogout } = useOtherLogout();
+  const { otherLogout } = useOtherLogout(socket);
   const handleClick1 = () => {
     let info = os.split(" ");
     otherLogout({

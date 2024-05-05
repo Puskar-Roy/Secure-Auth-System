@@ -12,16 +12,12 @@ import { sendLoginOTPwithNodemailer } from "../util/sendOTP";
 export const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "email and password are required" });
+    return res.status(400).json({ message: "email and password are required" });
   }
   try {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Email not valid!" });
+      return res.status(400).json({ message: "Email not valid!" });
     }
     if (user.isVerified === false) {
       await sendEmailwithNodemailer(user._id);
@@ -79,6 +75,10 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
   const { token } = req.query;
   const { id } = req.params;
+  console.log(token);
+  console.log(id);
+  
+  
   if (!token || typeof token !== "string")
     return res.status(400).send("Token not provided or invalid");
   try {
@@ -86,6 +86,8 @@ export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
     if (!user) {
       throw Error("User Not Found!");
     }
+    console.log(user);
+    
     const verificationToken = await VerifyModel.findOne({
       token: token,
       userId: user._id,
@@ -262,3 +264,37 @@ export const verifyUser = asyncHandler(async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+export const changePassword = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Current and new password are required" });
+    }
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(newPassword, salt);
+
+    user.password = hash;
+    await user.save();
+
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Change password error:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

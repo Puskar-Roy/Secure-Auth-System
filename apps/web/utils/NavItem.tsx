@@ -5,7 +5,7 @@ export const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
   return (
     <li
       onClick={closeNav}
-      className={`hover:text-rose-500 font-semibold text-lg ${alata.className}`}
+      className={`hover:text-rose-500 text-base font-medium ${alata.className}`}
     >
       <Link href={href}>{tags}</Link>
     </li>

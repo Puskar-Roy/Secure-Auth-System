@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(morgan("combined"));
 app.use(limiter);
 app.use(config.DEV_ENV === "PROD" ? cors(corsOptions) : cors());
-app.set("trust proxy", config.DEV_ENV === "PROD" ? true : false);
+// app.set("trust proxy", config.DEV_ENV === "PROD" ? true : false);
 app.use(helmet());
 app.use(hpp());
 app.use(errorHandler);

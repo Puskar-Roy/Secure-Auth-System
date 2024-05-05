@@ -6,10 +6,19 @@ import { browserName, os as oss, browserVersion } from "../utils/getDeviceInfo";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import { useOtherLogout } from "../hooks/useOtherLogout";
+import { Socket } from "socket.io-client";
 
-const Card = ({ os, timestamp }: { os: string; timestamp: string }) => {
+const Card = ({
+  os,
+  timestamp,
+  socket,
+}: {
+  os: string;
+  timestamp: string;
+  socket: Socket | undefined;
+}) => {
   const { state } = useAuthContext();
-  const { logout } = useLogout();
+  const { logout } = useLogout(socket);
   const { otherLogout } = useOtherLogout();
   let userBrowser = `${browserName} ${browserVersion} ${oss}`;
   const handleClick = () => {

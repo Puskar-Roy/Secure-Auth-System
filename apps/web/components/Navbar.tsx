@@ -1,49 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircle } from "react-icons/io";
 import logo from "../public/authlogo.jpg";
 import Image from "next/image";
 import { NavbarItems } from "../interfaces";
-import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Link from "next/link";
 import { alata } from "../utils/utli";
-import { browserName, os, browserVersion } from "../utils/getDeviceInfo";
 import { NavbarData } from "../utils/utli";
 import { NavItem } from "../utils/NavItem";
-import socketIOClient, { Socket } from "socket.io-client";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
- const { state } = useAuthContext();
- const [toggle, setToggle] = useState<boolean>(false);
- const [socket, setSocket] = useState<Socket | undefined>(undefined);
- const { logout } = useLogout(socket);
+  const { state } = useAuthContext();
+  const router = useRouter();
+  const [toggle, setToggle] = useState<boolean>(false);
 
- useEffect(() => {
-   const newSocket: Socket = socketIOClient(
-     `${process.env.NEXT_PUBLIC_BACKENDURL}`
-   );
-   setSocket(newSocket);
+  const toogleMenu = () => {
+    setToggle(!toggle);
+  };
 
-   return () => {
-     newSocket.disconnect();
-   };
- }, []);
-
- const toogleMenu = () => {
-   setToggle(!toggle);
- };
-
- const handleClick = () => {
-   logout({
-     userId: state.user?.id,
-     browserName,
-     browserVersion,
-     os,
-   });
-   setToggle(!toggle);
- };
+  const handleClick = () => {
+    router.push("/change-password");
+    setToggle(!toggle);
+  };
 
   return (
     <header className="shadow-lg flex justify-between items-center ">
@@ -85,35 +66,16 @@ const Navbar = () => {
                   tags={tags}
                 />
               ))}
-            {/* {state.user?.role === `${import.meta.env.VITE_ROLE}` ? (
-              <div className="flex flex-col gap-[30px]">
-                <NavItem
-                  closeNav={toogleMenu}
-                  href="/viewAttendance"
-                  tags="View Attendance"
-                />
-                <NavItem
-                  closeNav={toogleMenu}
-                  href="/usersAttendance"
-                  tags="Manage Attendance"
-                />
-                <NavItem
-                  closeNav={toogleMenu}
-                  href="/countAttendance"
-                  tags="Take Attendance"
-                />
-              </div>
-            ) : null} */}
             {state.user && (
               <div className="flex flex-col gap-[30px]">
-                <div className="hover:text-rose-500 font-semibold text-lg gabarito-regular cursor-pointer">
-                  {state.user.email}
-                </div>
                 <div
                   onClick={handleClick}
-                  className="hover:text-rose-500 font-semibold text-lg gabarito-regular cursor-pointer"
+                  className={`hover:text-rose-500 text-base font-medium cursor-pointer ${alata.className}`}
                 >
-                  Logout
+                  Change Password
+                </div>
+                <div className={`hover:text-rose-500 text-base font-medium cursor-pointer ${alata.className}`}>
+                  {state.user.email}
                 </div>
               </div>
             )}
@@ -125,23 +87,17 @@ const Navbar = () => {
               NavbarData.map(({ href, tags }: NavbarItems) => (
                 <NavItem key={href} href={href} tags={tags} />
               ))}
-            {/* {state.user?.role === `${import.meta.env.VITE_ROLE}` ? (
-              <div className="list-none flex gap-x-12">
-                <NavItem href="/viewAttendance" tags="View Attendance" />
-                <NavItem href="/usersAttendance" tags="Manage Attendance" />
-                <NavItem href="/countAttendance" tags="Take Attendance" />
-              </div>
-            ) : null} */}
+
             {state.user && (
               <div className="list-none flex gap-x-12">
-                <div className="hover:text-rose-500 font-semibold text-lg gabarito-regular cursor-pointer">
-                  {state.user.email}
-                </div>
                 <div
                   onClick={handleClick}
-                  className="hover:text-rose-500 font-semibold text-lg gabarito-regular cursor-pointer"
+                  className={`hover:text-rose-500 text-base font-medium cursor-pointer ${alata.className}`}
                 >
-                  Logout
+                  Change Password
+                </div>
+                <div className={`hover:text-rose-500 text-base font-medium cursor-pointer ${alata.className}`}>
+                  {state.user.email}
                 </div>
               </div>
             )}

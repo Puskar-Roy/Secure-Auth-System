@@ -11,7 +11,7 @@ export interface User {
   name?: string;
   message: string;
   success: boolean;
-  role:string;
+  role: string;
 }
 
 export interface Action {
@@ -38,14 +38,13 @@ export interface LoginVerifyData {
   otp: string;
 }
 
-
 export interface LoginHistory {
   _id: string;
   userId: string;
   deviceInfo: string;
   os: string;
   timestamp: string;
-  action:string;
+  action: string;
 }
 
 export interface LoginDevice {
@@ -55,14 +54,11 @@ export interface LoginDevice {
   _id: string;
 }
 
-
 export interface NavbarItems {
   href: string;
   tags: string;
   closeNav?: () => void;
 }
-
-
 
 export interface AdminUser {
   token?: string;
@@ -72,4 +68,10 @@ export interface AdminUser {
   message: string;
   success: boolean;
   role: string;
+}
+
+export interface ChnagePassowrdData {
+  currentPassword: string;
+  newPassword: string;
+  userId?:string;
 }

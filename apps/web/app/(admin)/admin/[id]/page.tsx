@@ -17,11 +17,12 @@ export default function Page(): JSX.Element {
   const [loginDevice, setLoginDevice] = useState<LoginDevice[]>([]);
   const [rerenderTrigger, setRerenderTrigger] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [socketValue, setSocketValue] = useState<Socket | undefined>(undefined);
   useEffect(() => {
     const socket: Socket = socketIOClient(
       `${process.env.NEXT_PUBLIC_BACKENDURL}`
     );
+    setSocketValue(socket);
 
     socket.on("activeUsers", (count) => {
       setActiveUsers(count);
@@ -73,6 +74,7 @@ export default function Page(): JSX.Element {
           {loginDevice ? (
             loginDevice.map((device) => (
               <AdminCard
+                socket={socketValue}
                 userId={params.id}
                 key={device.deviceId}
                 os={device.deviceName}
@@ -125,7 +127,7 @@ export default function Page(): JSX.Element {
                 </tr>
               </thead>
               <tbody>
-                {loginHistory.map((attendance) => (
+                {loginHistory.reverse().map((attendance) => (
                   <tr key={attendance._id} className="bg-white border-b ">
                     <th
                       scope="row"

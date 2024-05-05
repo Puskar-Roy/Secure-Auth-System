@@ -21,7 +21,7 @@ export const sendAleart = async (userId: string) => {
       from: "puskarroy300@gmail.com",
       to: user.email,
       subject: "Unauthorized Login Detected on Your Account",
-      html: ` <h2>Dear ${user.name} 👋, Our system has detected a login to your account that appears to be unauthorized. If this login was not initiated by you, we strongly recommend changing your password immediately to secure your account.</h2>
+      html: ` <p>Dear ${user.name} 👋, Our system has detected a login to your account that appears to be unauthorized. If this login was not initiated by you, we strongly recommend changing your password immediately to secure your account.</p>
 
   <h3 style="font-family: Arial, sans-serif;">Thank you,<br>Puskar Roy</h3>`,
     };
