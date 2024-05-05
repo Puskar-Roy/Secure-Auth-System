@@ -29,6 +29,7 @@ export default function Page(): JSX.Element {
 
     socket.on("rerender", () => {
       setRerenderTrigger((prev) => !prev);
+      window.location.reload();
     });
 
     return () => {
