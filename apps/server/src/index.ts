@@ -9,6 +9,7 @@ import errorHandler from "./middleware/errorHandler";
 import CheckError from "./util/checkError";
 import { limiter, corsOptions, socketOptions } from "./util/utils";
 import authRoutes from "./routes/authRoutes";
+import userRoutes from './routes/userRoutes';
 import { sendAleart } from "./util/sendAleart";
 
 const app: Express = express();
@@ -33,6 +34,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/v0.1/auth", authRoutes);
+app.use("/api/v0.1/users", userRoutes);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new CheckError(`Can't find ${req.originalUrl} on this server!`, 404));
