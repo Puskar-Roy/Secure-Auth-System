@@ -12,12 +12,16 @@ import { sendLoginOTPwithNodemailer } from "../util/sendOTP";
 export const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    throw Error("All fields must be filled");
+    return res
+      .status(400)
+      .json({ message: "email and password are required" });
   }
   try {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw Error("Email is not valid");
+      return res
+        .status(400)
+        .json({ message: "Email not valid!" });
     }
     if (user.isVerified === false) {
       await sendEmailwithNodemailer(user._id);

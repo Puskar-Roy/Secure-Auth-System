@@ -25,6 +25,7 @@ export const useOtherLogout = () => {
         );
       window.location.reload();
     } catch (error) {
+      alert(`Error Here ${browserName} ${browserVersion}`)
       console.error("Login error:", error);
     }
   };

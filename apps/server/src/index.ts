@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import helmet from "helmet";
+import morgan from 'morgan'
 import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
@@ -15,6 +16,7 @@ import { sendAleart } from "./util/sendAleart";
 const app: Express = express();
 
 app.use(express.json());
+app.use(morgan("combined"));
 app.use(limiter);
 app.use(config.DEV_ENV === "PROD" ? cors(corsOptions) : cors());
 app.set("trust proxy", config.DEV_ENV === "PROD" ? true : false);

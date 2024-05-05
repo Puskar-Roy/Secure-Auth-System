@@ -23,7 +23,7 @@ export default function RootLayout({
     router.push("/login");
   }
 
-  if (state.user?.role !== "User") {
+  if (state.user?.role === "Admin") {
     router.push("/admin");
   }
   if (isDeviceVerified === null) {

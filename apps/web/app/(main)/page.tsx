@@ -55,8 +55,6 @@ export default function Page(): JSX.Element {
     }
   }, [state.user, rerenderTrigger]);
 
-
-
   return (
     <main className="w-[80%] mx-auto min-h-[80vh] flex  items-center flex-col ">
       <div className="flex flex-col gap-6 justify-center items-center mt-[50px]">

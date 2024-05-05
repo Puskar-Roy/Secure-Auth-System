@@ -64,3 +64,12 @@ export interface NavbarItems {
 
 
 
+export interface AdminUser {
+  token?: string;
+  email?: string;
+  _id?: string;
+  name?: string;
+  message: string;
+  success: boolean;
+  role: string;
+}
