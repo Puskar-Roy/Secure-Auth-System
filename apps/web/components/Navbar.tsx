@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircle } from "react-icons/io";
 import logo from "../public/authlogo.jpg";
@@ -10,45 +10,41 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Link from "next/link";
 import { alata } from "../utils/utli";
 import { browserName, os, browserVersion } from "../utils/getDeviceInfo";
-export const NavbarData: NavbarItems[] = [
-  {
-    href: "/login",
-    tags: "Login",
-  },
-  {
-    href: "/register",
-    tags: "Register",
-  },
-];
-
-const NavItem = ({ href, tags, closeNav }: NavbarItems) => {
-  return (
-    <li
-      onClick={closeNav}
-      className={`hover:text-rose-500 font-semibold text-lg ${alata.className}`}
-    >
-      <Link href={href}>{tags}</Link>
-    </li>
-  );
-};
+import { NavbarData } from "../utils/utli";
+import { NavItem } from "../utils/NavItem";
+import socketIOClient, { Socket } from "socket.io-client";
 
 const Navbar = () => {
-  const { state } = useAuthContext();
-  const { logout } = useLogout();
+ const { state } = useAuthContext();
+ const [toggle, setToggle] = useState<boolean>(false);
+ const [socket, setSocket] = useState<Socket | undefined>(undefined);
+ const { logout } = useLogout(socket);
 
-  const [toggle, setToggle] = useState<boolean>(false);
-  const toogleMenu = () => {
-    setToggle(!toggle);
-  };
-  const handleClick = () => {
-    logout({
-      userId: state.user?.id,
-      browserName,
-      browserVersion,
-      os,
-    });
-    setToggle(!toggle);
-  };
+ useEffect(() => {
+   const newSocket: Socket = socketIOClient(
+     `${process.env.NEXT_PUBLIC_BACKENDURL}`
+   );
+   setSocket(newSocket);
+
+   return () => {
+     newSocket.disconnect();
+   };
+ }, []);
+
+ const toogleMenu = () => {
+   setToggle(!toggle);
+ };
+
+ const handleClick = () => {
+   logout({
+     userId: state.user?.id,
+     browserName,
+     browserVersion,
+     os,
+   });
+   setToggle(!toggle);
+ };
+
   return (
     <header className="shadow-lg flex justify-between items-center ">
       <nav className="flex justify-between items-center w-[80%] mx-auto my-[30px]">

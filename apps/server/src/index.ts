@@ -58,6 +58,10 @@ io.on("connection", (socket) => {
     }
   });
 
+   socket.on("logout", () => {
+     io.emit("rerender"); 
+   });
+
   socket.on("disconnect", () => {
     activeUsers--;
     io.emit("activeUsers", activeUsers);
