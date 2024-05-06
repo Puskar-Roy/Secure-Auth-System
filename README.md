@@ -3,7 +3,10 @@
 <br />
 <div align="center">
   
-  ![bingoctfgogreenlandingpage](./apps/web/public/authlogo.jpg)
+ 
+<a href="https://github.com/Puskar-Roy/Attendance-System---Backend">
+    <img src="./apps/web/public/authlogo.jpg" alt="Logo" width="150" height="120">
+  </a>
   
 <h3 align="center">AuthHub - An Advance Auth System 📝</h3>
   <p align="center">
@@ -150,7 +153,6 @@ Before you begin contributing to this project, make sure you have the following 
 
    <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ### Run This Using Docker 🐟
 
 _Please note that the currently API can only be run using Docker. Make sure you have Docker installed_
@@ -164,10 +166,10 @@ _Please note that the currently API can only be run using Docker. Make sure you 
     docker build -t server .
    ```
 3. **Run the Docker Image:**
+
    ```bash
     docker run -e add-environmental-variables -p 5050:5050 server
    ```
-
 
     <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
