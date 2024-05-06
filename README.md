@@ -26,7 +26,7 @@
 
  ## Directory Structure 🌟 
 
- __Just a quick note to let you know that this is a Monorepo, built with the Monorepo framework *Turborepo*. This means that it contains multiple packages or projects in a single repository, making it easier to manage and share code across different parts of the application.__
+ *Just a quick note to let you know that this is a __Monorepo__, built with the Monorepo framework __Turborepo__. This means that it contains multiple packages or projects in a single repository, making it easier to manage and share code across different parts of the application.*
 
 ```bash
 Secure-Auth-System/
