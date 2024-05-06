@@ -54,6 +54,10 @@ export const sendLoginOTPwithNodemailer = async (userId: string) => {
     },
   });
 
+  console.log(config.EMAIL);
+  console.log(config.PASSWORD);
+  
+
   try {
     const user = await UserModel.findById({ _id: userId });
     if (!user) throw new Error("User not found");

@@ -1,81 +1,207 @@
-# Turborepo starter
+<a name="readme-top"></a>
 
-This is an official starter Turborepo.
+<br />
+<div align="center">
+  
+ 
+<a href="https://github.com/Puskar-Roy/Attendance-System---Backend">
+    <img src="./apps/web/public/authlogo.jpg" alt="Logo" width="150" height="120">
+  </a>
+  
+<h3 align="center">AuthHub - An Advance Auth System 📝</h3>
+  <p align="center">
+    <br />
+    <a href="https://github.com/Puskar-Roy/Secure-Auth-System"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://myauthhub.vercel.app">Go Live</a>
+    ·
+    <a href="https://github.com/Puskar-Roy/Secure-Auth-System/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Puskar-Roy/Secure-Auth-System/issues">Request Feature</a>
+  </p>
+</div>
 
-## Using this example
+##### Note: _Please be aware that our API is currently deployed in the free tier. This means that your free instance will spin down due to inactivity, potentially causing delays of 50 seconds or more in request handling._
 
-Run the following command:
+![bingoctfgogreenlandingpage](./docs/assets/Screenshot%202024-05-06%20133903.png)
 
-```sh
-npx create-turbo@latest
+## Directory Structure 🌟
+
+_Just a quick note to let you know that this is a **Monorepo**, built with the Monorepo framework **Turborepo**. This means that it contains multiple packages or projects in a single repository, making it easier to manage and share code across different parts of the application._
+
+```bash
+Secure-Auth-System/
+  ├── turbo.json #Turborepo config
+  ├── pnpm-workspace.yaml (if using pnpm)  #
+  ├── README.md  # Project overview
+  ├── apps/  #Main Apps
+  │   ├── web/  # Next Js Frontend
+  │   │   ├── public/  # Public assets
+  │   │   └── src/  # Source code
+  │   │
+  │   └── server/  # Node JsBackend
+  │       # ... (similar structure For An API)
+  └── packages/
+  │   ├── ui(shared-components)/
+  │   │   ├── src/
+  │   │   └── package.json
+  │   └── config/  # Example utility package
+  │       ├── src/
+  │       └── package.json
+  └── (Optional directories)
+      ├── docs/  # Project documentation
+  └── .gitignore  # Version control exclusions
 ```
 
-## What's inside?
+## All Features 🌟
 
-This Turborepo includes the following packages/apps:
+### 1. Role base Authentication (JWT, session-based)
 
-### Apps and Packages
+#### Login Page
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- Users can log in to their accounts using their credentials and OTP.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+![attendance](./docs/assets/Screenshot%202024-05-06%20121439.png)
 
-### Utilities
+![attendance](./docs/assets/Screenshot%202024-05-06%20125211.png)
 
-This Turborepo has some additional tools already setup for you:
+![attendance](./docs/assets/Screenshot%202024-05-06%20124833.png)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+#### Register Page
 
-### Build
+- New users can create an account and verify his email to access the application.
 
-To build all apps and packages, run the following command:
+![attendance](./docs//assets/Screenshot%202024-05-06%20121510.png)
 
-```
-cd my-turborepo
-pnpm build
-```
+![attendance](./docs//assets/Screenshot%202024-05-06%20125318.png)
 
-### Develop
+### 2. Users Page
 
-To develop all apps and packages, run the following command:
+- Users can see all online users, see current device, manage all of his account and also signout from any device
 
-```
-cd my-turborepo
-pnpm dev
-```
+![attendance](./docs//assets/Screenshot%202024-05-06%20124856.png)
 
-### Remote Caching
+- Users can view their Auth records.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+![attendance](./docs//assets/Screenshot%202024-05-06%20124928.png)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+- When a user is already logged in on one device, if someone logs in to another device using the same account credentials, we will send an email notification.
 
-```
-cd my-turborepo
-npx turbo login
-```
+![attendance](./docs//assets/Screenshot%202024-05-06%20125247.png)
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Note - _**When User Login or Logout UI will update autometic with the help of web sockets**_
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### 3. Admin Panel
 
-```
-npx turbo link
-```
+- Admins can view All User Details
 
-## Useful Links
+![attendance](./docs/assets/Screenshot%202024-05-06%20132822.png)
 
-Learn more about the power of Turborepo:
+- Admins can view and manage all users device and auth history
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+![attendance](./docs//assets/Screenshot%202024-05-06%20133106.png)
+
+## Getting Started 🚀
+
+### Prerequisites
+
+Before you begin contributing to this project, make sure you have the following set up:
+
+- [Node.js](https://nodejs.org/): A JavaScript runtime.
+- [npm](https://www.npmjs.com/): The Node.js package manager.
+
+### Run This ⌨️
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Puskar-Roy/Secure-Auth-System
+   ```
+2. **Install Dependencies:**
+   ```bash
+    npm install
+   ```
+3. **Add Environment Variables:**
+   ```bash
+   cd apps/web touch .env
+   cd apps/server touch .env
+   ```
+4. **Add the necessary configuration:**
+
+   ```bash
+   #In apps/web Directory
+   NEXT_PUBLIC_BACKENDURL=http://localhost:5050
+
+
+   #In apps/server Directory
+   PORT=5050
+   DEV_MODE=DEV   #DEV or PROD
+   FRONTENDURL=http://localhost:3000
+   BACKENDURL=http://localhost:5050
+   JWT_SECRET=<yourjwtsecret>
+   JWT_COOKIE_EXPIRES_IN=3d
+   EMAIL=<yourgmail>  #For Nodemailer
+   PASSWORD=<yourpassword>  #For Nodemailer
+   MONGOURI=<yourmongouri>
+   ```
+
+5. **Run This Project:**
+
+   ```bash
+   npm run dev
+   ```
+
+   <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Run This Using Docker 🐟
+
+_Please note that the currently API can only be run using Docker. Make sure you have Docker installed_
+
+1. **Move Into API Directory**
+   ```bash
+   cd apps/server
+   ```
+2. **Build the Docker Image:**
+   ```bash
+    docker build -t server .
+   ```
+3. **Run the Docker Image:**
+
+   ```bash
+    docker run -e add-environmental-variables -p 5050:5050 server
+   ```
+
+    <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+This section highlights the key frameworks and libraries that form the foundation of your project. Below are some notable examples:
+
+- **[![TypeScript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)](https://www.typescriptlang.org/):** A superset of JavaScript that adds static types.
+- **[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript):** The programming language of
+- **[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/):** The database for modern applications.
+- **[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/):** Cloud platform for serverless deployment and hosting.
+- **[![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/):** Pluggable linting utility for identifying and fixing code issues.
+- **[![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/):** Opinionated code formatter to ensure consistent code styling the web.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contributing 🌟
+
+### Making Contributions
+
+We welcome and appreciate contributions from the community ❤️! Here's how you can contribute:
+
+- **Open Issues:** Check for open issues or create a new one to start discussions.
+- **Fork the Repository:** Fork the project to your own GitHub account.
+- **Create Pull Request:** Make changes in your fork and submit a pull request.
+
+### Welcome Contributors!
+
+🚀 Thank you for considering contributing to this project! Your involvement makes this template even better. Feel free to explore the code, share your ideas, and make improvements ✌️.
+
+🌟 Don't hesitate to reach out if you have any questions or need assistance. Together, let's make this project amazing!🟩
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Puskar Roy🖋️
