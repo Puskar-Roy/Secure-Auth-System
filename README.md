@@ -26,7 +26,13 @@
 
 ![bingoctfgogreenlandingpage](./docs/assets/Screenshot%202024-05-06%20133903.png)
 
-## Directory Structure 🌟
+## Architecture Diagram 💻
+
+
+![bingoctfgogreenlandingpage](./docs/assets/Next%20Js%20(1).png)
+
+
+## Directory Structure 📏
 
 _Just a quick note to let you know that this is a **Monorepo**, built with the Monorepo framework **Turborepo**. This means that it contains multiple packages or projects in a single repository, making it easier to manage and share code across different parts of the application._
 
