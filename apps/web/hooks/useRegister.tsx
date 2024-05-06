@@ -24,6 +24,9 @@ export const useRegister = () => {
       );
       setisSucess(true);
       setisLoading(false);
+      setTimeout(() => {
+        console.log("Hello");
+      }, 4000);
       router.push("/login");
     } catch (error) {
       console.error("Login error:", error);
