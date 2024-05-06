@@ -8,7 +8,7 @@
     <img src="./apps/web/public/authlogo.jpg" alt="Logo" width="150" height="120">
   </a>
   
-<h3 align="center">AuthHub - An Advance Auth System 📝</h3>
+<h3 align="center">AuthHub - An Advance Auth System 💻 </h3>
   <p align="center">
     <br />
     <a href="https://github.com/Puskar-Roy/Secure-Auth-System"><strong>Explore the docs »</strong></a>
@@ -26,13 +26,9 @@
 
 ![bingoctfgogreenlandingpage](./docs/assets/Screenshot%202024-05-06%20133903.png)
 
-## Architecture Diagram 💻
 
 
-![bingoctfgogreenlandingpage](./docs/assets/Next%20Js%20(1).png)
-
-
-## Directory Structure 📏
+## Directory Structure 📝
 
 _Just a quick note to let you know that this is a **Monorepo**, built with the Monorepo framework **Turborepo**. This means that it contains multiple packages or projects in a single repository, making it easier to manage and share code across different parts of the application._
 
@@ -59,6 +55,13 @@ Secure-Auth-System/
       ├── docs/  # Project documentation
   └── .gitignore  # Version control exclusions
 ```
+
+
+## Architecture Diagram 💻
+
+
+![bingoctfgogreenlandingpage](./docs/assets/Next%20Js%20(1).png)
+
 
 ## All Features 🌟
 
