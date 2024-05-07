@@ -42,6 +42,7 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new CheckError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+
 let activeUsers = 0;
 const loggedInUserIds: string[] = [];
 
@@ -72,6 +73,60 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+
+
+
+
+// let activeUsers = 0;
+// const loggedInUsers: Record<string, string> = {};
+
+// io.on("connection", (socket) => {
+//   activeUsers++;
+//   io.emit("activeUsers", activeUsers);
+
+//   socket.on("login", async (userId: string) => {
+//     const existingSocketId = loggedInUsers[userId];
+//     if (existingSocketId) {
+//       io.to(existingSocketId).emit("rerender");
+//       await sendAleart(userId);
+//     } else {
+//       loggedInUsers[userId] = socket.id;
+//     }
+//   });
+
+//   socket.on("logout", () => {
+//     const userId = getUserIdBySocketId(socket.id);
+//     delete loggedInUsers[userId as string];
+//     io.emit("rerender");
+//   });
+
+//   socket.on("disconnect", () => {
+//     activeUsers--;
+//     io.emit("activeUsers", activeUsers);
+
+//     const userId = getUserIdBySocketId(socket.id);
+//     delete loggedInUsers[userId as string];
+//   });
+
+//   function getUserIdBySocketId(socketId: string): string | undefined {
+//     for (const userId in loggedInUsers) {
+//       if (loggedInUsers[userId] === socketId) {
+//         return userId;
+//       }
+//     }
+//     return undefined;
+//   }
+// });
+
+
+
+
+
+
+
+
+
 
 server.listen(config.PORT, () => {
   console.log(`[⚡] Server Is Running on ${config.BACKENDURL}`);
