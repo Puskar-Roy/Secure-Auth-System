@@ -75,10 +75,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
   const { token } = req.query;
   const { id } = req.params;
-  console.log(token);
-  console.log(id);
-  
-  
+
   if (!token || typeof token !== "string")
     return res.status(400).send("Token not provided or invalid");
   try {
@@ -86,8 +83,6 @@ export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
     if (!user) {
       throw Error("User Not Found!");
     }
-    console.log(user);
-    
     const verificationToken = await VerifyModel.findOne({
       token: token,
       userId: user._id,

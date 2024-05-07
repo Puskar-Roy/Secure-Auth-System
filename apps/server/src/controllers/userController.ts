@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from "../util/catchAsync";
 import UserModel from "../models/userSchema";
-import VerifyModel from "../models/tokenSchema";
-import LoginHistoryModel from "../models/loginHistorySchema";
 
 export const getUser = asyncHandler(async (req: Request, res: Response) => {
   try {
