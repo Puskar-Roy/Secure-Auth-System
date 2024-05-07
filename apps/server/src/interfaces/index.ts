@@ -33,3 +33,10 @@ export interface LoggedInDevice {
   deviceName: string;
   lastLogin: Date;
 }
+
+
+export interface TokenData {
+  _id: string;
+  iat: number;
+  exp: number;
+}
